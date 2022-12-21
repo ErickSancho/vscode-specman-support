@@ -1,0 +1,56 @@
+{
+    "extend":{
+        "prefix":"extend",
+        "body":[
+            "extend ${1:unit} {",
+            "\t$0",
+            "};"
+        ]
+    },
+    "unit":{
+        "prefix":"extend",
+        "body":[
+            "extend ${1:unit} {",
+            "\t$0",
+            "};"
+        ]
+    },
+    "message":{
+        "prefix":"message",
+        "body":[
+            "message(${1:type}, ${2:verbosity}, \"${0:content}\")"
+        ]
+    },
+    "messagef":{
+        "prefix":"messagef",
+        "body":[
+            "messagef(${1:type}, ${2:verbosity}, \"${0:content}\")"
+        ]
+    },
+    "if":{
+        "prefix":"if",
+        "body":[
+            "if (${1:Condition}) {",
+            "\t$0",
+            "}; -- if (${1:Condition})"
+        ]
+    },
+    "if-else":{
+        "prefix":"if-else",
+        "body":[
+            "if (${1:Condition}) {",
+            "\t$2",
+            "} else {",
+            "\t$0",
+            "}; -- if (${1:Condition})"
+        ]
+    },
+    "while":{
+        "prefix":"while",
+        "body":[
+            "while (${1:Condition}) {",
+            "\t$0",
+            "};"
+        ]
+    }
+}

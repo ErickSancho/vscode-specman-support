@@ -1,0 +1,39 @@
+{
+  "name": "specman-language",
+  "displayName": "Specman - Language Support",
+  "description": "Specman support for VS Code",
+  "version": "1.0.0",
+  "engines": {
+    "vscode": "^1.74.0"
+  },
+  "publisher": "ersa",
+  "repository": {
+		"type": "git",
+		"url": "https://github.com/ErickSancho/vscode-specman-support.git"
+	},
+  "categories": [
+    "Programming Languages",
+    "Snippets"
+  ],
+  "icon": "images/icon.png",
+  "license": "SEE LICENSE IN LICENSE",
+  "contributes": {
+    "languages": [{
+      "id": "specman",
+      "aliases": ["specman", "e"],
+      "extensions": [".e"],
+      "configuration": "./config/language-configuration.json"
+    }],
+    "grammars": [{
+      "language": "specman",
+      "scopeName": "source.e",
+      "path": "./syntaxes/e.tmLanguage.json"
+    }],
+    "snippets":[
+      {
+        "language": "specman",
+        "path": "./snippets/e.json"
+      }
+    ]
+  }
+}

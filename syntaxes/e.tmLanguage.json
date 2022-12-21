@@ -1,0 +1,438 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "specman",
+	"scopeName": "source.e",
+	"patterns": [
+      {"include": "#body_declaration"},
+      {"include": "#out_of_body"}		
+	],
+	"repository": {
+      "body_declaration":{
+         "patterns":[{
+            "begin": "<\\'",
+            "beginCaptures": {
+               "0": {
+                  "name": "punctuation.section.begin.body.e"
+               }
+            },
+            "end": "\\'>",
+            "endCaptures": {
+               "0": {
+                  "name": "punctuation.section.end.body.e"
+               }
+            },
+            "patterns": [
+               {"include": "#block_declaration"},
+               {"include": "#ctrl-statements"},
+               {"include": "#punctuation"},
+               {"include": "#operators"},
+               {"include": "#parenthesis"},
+               {"include": "#curly_braces"},
+               {"include": "#square_brackets"},
+               {"include": "#variable_type"}
+            ]
+         }]
+		},
+		"out_of_body":{
+			"name":"comment.block",
+			"match": ".*"
+		},
+		"block_declaration":{
+			"patterns": [
+				{
+					"name": "entity.name.class.e",
+					"match": "\\b(extend|unit)\\b"
+				},
+				{"include": "#ctrl-statements"},
+				{"include": "#punctuation"},
+				{"include": "#operators"},
+				{"include": "#variable_type"}
+			]
+		},
+		"ctrl-statements": {
+			"patterns": [
+            {"include": "#methods"},
+            {"include": "#variable_type"},
+            {"include": "#conditional"},
+            {"include": "#temporal"},
+            {"include": "#loops"},
+            {"include": "#define"},
+            {"include": "#constraint"},
+            {"include": "#special"},
+            {"include": "#general_statements"},
+            {"include": "#coverage"}
+			]
+		},
+      "general_statements":{
+         "patterns": [
+            {
+               "match": "\\b(var|instance|on|start|event|expect|check|that|routine|specman|is|also|first|only|with|like)\\b",
+					"name": "keyword.control.e"
+            },
+            {
+               "match": "\\b(list|of|all|radix|hex|dec|bin|ignore|illegal|traceable|untraceable)\\b",
+					"name": "keyword.other.unit.e"
+            }
+         ]
+      },
+      "coverage":{
+         "patterns": [
+            {
+               "match": "\\b(cover|using|count_only|trace_only|at_least|transition|item|ranges|cross|text|call|task|within)\\b",
+					"name": "keyword.control.e"
+            }
+         ]
+      },
+      "conditional":{
+         "patterns": [
+            {
+					"match": "\\b(choose|matches|if|then|else|when|try|case|casex|casez|default)\\b",
+					"name": "keyword.control.e"
+				}
+         ]
+      },
+      "loops":{
+         "patterns": [
+            {
+               "match": "\\b(until|repeat|while|for|from|to|step|each|do|break|continue|before|next|sequence|always|\\-kind|network|index|it|me|in|new|return|result|select)\\b",
+					"name": "keyword.control.e"
+            }
+         ]
+      },
+      "define":{
+         "patterns": [
+            {
+               "match": "\\b(define|as|computed|type|struct)\\b",
+					"name": "keyword.control.e"
+            },
+            {
+               "match": "\\b(verilog|vhdl|variable|global|sys)\\b",
+					"name": "keyword.other.unit.e"
+            }
+         ]
+      },
+      "constraint":{
+         "patterns": [
+            {
+               "match": "\\b(gen|keep|keeping|soft|before)\\b",
+					"name": "keyword.control.e"
+            }
+         ]
+      },
+      "temporal":{
+        "patterns": [
+         {
+            "name": "keyword.other.unit.e",
+				"match": "\\b(cycle|sample|events|forever|wait|change|negedge|rise|fall|delay|sync|sim|true|detach|eventually|emit)\\b"
+         }
+        ] 
+      },
+      "methods":{
+         "patterns": [
+            {
+					"name": "entity.name.function.e",
+					"match": "\\b(read_only|gen_hdl_path|hdl_path|connect_pointers|compute|body|pop|push|messagef|message|simple_port|size)\\b"
+				},
+            {
+					"name": "entity.name.function.e",
+					"match": "\\b(initialize|non_terminal|testgroup|delayed|exit|finish)\\b"
+				},
+            {
+					"name": "entity.name.function.e",
+					"match": "\\b(out|append|print|outf|appendf|post_generate|pre_generate|setup_test|finalize_test|extract_test)\\b"
+				},
+            {
+					"name": "entity.name.function.e",
+					"match": "\\b(init|run|copy|as_a|set_config|dut_error|add|clear|lock|quit|lock|unlock|release|swap|quit|to_string|value|stop_run)\\b"
+				},
+            {
+					"name": "entity.name.function.e",
+					"match": "\\b(crc_8|crc_32|crc_32_flip|get_config|add0|all_indices|and_all|apply|average|count|delete|exists|first_index|get_indices)\\b"
+				},
+            {
+					"name": "entity.name.function.e",
+					"match": "\\b(has|insert|is_a_permutation|is_empty|key|key_exists|key_index|last|last_index|max|max_index|max_value|min|min_index)\\b"
+				},
+            {
+					"name": "entity.name.function.e",
+					"match": "\\b(min_value|or_all|pop|pop0|push|push0|product|resize|reverse|sort|split|sum|top|top0|unique|clear|is_all_iterations)\\b"
+				},
+            {
+					"name": "entity.name.function.e",
+					"match": "\\b(get_enclosing_unit|hdl_path|exec|deep_compare|deep_compare_physical|pack|unpack|warning|error|fatal)\\b"
+				}
+         ]
+      },
+      "special":{
+         "patterns": [
+            {
+               "name": "entity.name.function.e",
+					"match": "\\b(files|load|module|ntv|source_ref|script|read|write|initial|idle|others|posedge|clock|cycles)\\b"
+            },
+            {
+					"name": "keyword.other.unit.e",
+					"match": "@(?>\\w+)"
+				}
+         ]
+      },
+		"variable_type":{
+			"patterns": [
+				{
+					"match": "\\b(integer|real|bool|int|long|uint|byte|bits|bit|time|string|byte_array|external_pointer)\\b",
+					"name": "keyword.other.type.e"
+				}
+			]
+		},
+		"operators": {
+			"patterns":[
+				{
+					"match": "\\b(TRUE|FALSE|MAX_INT|MIN_INT|NULL|UNDEF|untyped|symtab|ECHO DOECHO)\\b",
+					"name": "markup.bold.e"
+				},
+            {
+					"match": "\\b(ERROR|NONE|LOW|HIGH|DEBUG|NORMAL|FATAL)\\b",
+					"name": "markup.bold.e"
+				},
+				{
+					"match": "(=|==|!=|<=|>=|<|>|\\+|\\-|\\*|\\/)",
+					"name":"keyword.operator.new.e"
+				},
+            {
+					"match": "(\\&\\&|\\|\\||\\^)",
+					"name":"keyword.operator.new.e"
+				},
+            {
+					"match": "(\\&|\\||<<|>>)",
+					"name":"keyword.operator.new.e"
+				},
+				{
+					"match": "\\b(and|or|not|xor)\\b",
+					"name":"keyword.operator.new.e"
+				}
+			]
+		},
+		"punctuation": {
+			"patterns": [
+			  {
+				"begin": "\\b(import|package)\\b(?!.*\\()",
+				"beginCaptures": {
+				  "1": {"name": "keyword.control.import.e"}
+				},
+				"end": "(?<=\\;)",
+				"name": "meta.import.declaration.e"
+			  },
+			  
+			  {
+				"match": ",",
+				"name": "punctuation.separator.delimiter.e"
+			  },
+			  {
+				"match": ";",
+				"name": "punctuation.terminator.statement.e"
+			  },
+			  {"include": "#comments"},
+			  {"include": "#numbers"},
+			  {"include": "#strings"},
+			  {"include": "#operators"}
+			]
+		},
+		"square_brackets": {
+			"patterns": [
+               {
+               "begin": "\\[",
+               "beginCaptures": {
+                  "0": {
+                     "name": "punctuation.section.begin.bracket.square.e"
+                  }
+               },
+               "end": "\\]",
+               "endCaptures": {
+                  "0": {
+                     "name": "punctuation.section.end.bracket.square.e"
+                  }
+               },
+               "name": "section.bracket.square.e",
+               "patterns": [
+                  {"include": "#punctuation"},
+                  {"include": "#ctrl-statements"}
+               ]
+			   },
+			   {
+			      "match": "\\]",
+				   "name": "invalid.illegal.stray.parens.end.bracket.square.e"
+			   }
+			]
+		  },
+		  "curly_braces": {
+			"patterns": [
+			  {
+				"begin": "\\{",
+				"beginCaptures": {
+				  "0": {
+					"name": "punctuation.section.begin.bracket.curly.e"
+				  }
+				},
+				"end": "\\}",
+				"endCaptures": {
+				  "0": {
+					"name": "punctuation.section.end.bracket.curly.e"
+				  }
+				},
+				"name": "section.bracket.curly.e",
+				"patterns": [
+				  {"include": "#prototype_curly_braces"},
+				  {"include": "#ctrl-statements"},
+				  {"include": "#punctuation"},
+				  {"include": "#parenthesis"},
+				  {"include": "#square_brackets"},
+				  {"include": "#numbers"},
+				  {"include": "#operators"},
+				  {"include": "#variable_type"}
+				]
+			  },
+			  {
+				"match": "\\}",
+				"name": "invalid.illegal.stray.parens.end.bracket.curly.e"
+			  }
+			]
+		  },
+		  "parenthesis": {
+			"patterns": [
+			  {
+				"begin": "\\(",
+				"beginCaptures": {
+				  "0": {
+					"name": "punctuation.section.begin.parenthesis.e"
+				  }
+				},
+				"end": "\\)",
+				"endCaptures": {
+				  "0": {
+					"name": "punctuation.section.end.parenthesis.e"
+				  }
+				},
+				"name": "section.bracket.e",
+				"patterns": [
+				  {"include": "#ctrl-statements"},
+				  {"include": "#punctuation"},
+				  {"include": "#operators"},
+				  {"include": "#variable_type"}
+				]
+			  },
+			  {
+				"match": "\\}",
+				"name": "invalid.illegal.stray.parens.end.bracket.curly.e"
+			  }
+			]
+		  },
+		"strings": {
+			"patterns": [
+				{
+					"begin": "\"",
+					"beginCaptures": {
+						"0": {"name": "punctuation.definition.string.begin.e"}
+					},
+					"end": "\"",
+					"endCaptures": {
+						"0": {"name": "punctuation.definition.string.end.e"}
+					},
+					"name": "string.quoted.double.e",
+					"patterns": [
+						{
+						"match": "\\\\.",
+						"name": "constant.character.escape.e"
+						},
+						{
+						"match": "(\\%\\d*\\w)",
+						"name": "constant.character.escape.e"
+						}
+					]
+				}
+			]
+		},
+		"numbers": {
+			"patterns": [
+            {
+               "comment": "HEX numerical values.",
+               "match": "(0x)([a-fA-F0-9])*",
+               "name": "constant.numeric.hex.e"
+            },
+            {
+               "match": "(?<![\\w$])[0-9][0-9_]*\\.[0-9][0-9_]*",
+               "name": "constant.numeric.float.e"
+			   },
+			   {
+               "comment": "Numeric values.",
+               "match": "(?<![A-Za-z_])([0-9][0-9_]*)",
+               "captures": {
+               "1": {"name": "constant.numeric.width.e"},
+               "2": {"name": "constant.numeric.e"}
+               }
+			  },
+			  {
+               "match": "\\b([0-9][0-9_]*)\\s*((f|m|n|u|p)s)\\b",
+               "captures": {
+               "0": {"name": "meta.timing.control.e"},
+               "1": {"name": "constant.numeric.integer.e"},
+               "2": {"name": "constant.language.time-units.e"}
+				}
+			  }
+			]
+		  },
+		"comments": {
+			"patterns": [
+			  {
+				"begin": "\\/\\/",
+				"beginCaptures": {
+				  "0": {"name": "punctuation.definition.comment.e"}
+				},
+				"end": "$\\n?",
+				"name": "comment.line.double-slash.e",
+				"patterns": [
+				  {"include": "#comment_highlight"}
+				]
+			  },
+			  {
+				"begin": "\\/\\*",
+				"beginCaptures": {
+				  "0": {"name": "punctuation.definition.comment.begin.e"}
+				},
+				"end": "\\*\\/",
+				"endCaptures": {
+				  "0": {"name": "punctuation.definition.comment.end.e"}
+				},
+				"name": "comment.block.e",
+				"patterns": [
+				  {"include": "#comment_highlight"}
+				]
+			  },
+			  {
+				"begin": "(\\s)*\\-\\-",
+				"beginCaptures": {
+				  "0": {"name": "punctuation.definition.comment.begin.e"}
+				},
+				"end": "\\n",
+				"endCaptures": {
+				  "0": {"name": "punctuation.definition.comment.end.e"}
+				},
+				"name": "comment.block.e",
+				"patterns": [
+				  {"include": "#comment_highlight"}
+				]
+			  },
+			  {
+				"match": "\\*\\/.*\\n",
+				"name": "invalid.illegal.stray-comment-end.e"
+			  }
+			]
+		  },
+		  "comment_highlight": {
+			"patterns": [
+			  {
+				"match": "(?i)\\b(contained|fixme|note|todo)\\:",
+				"name": "markup.heading.comment-highlight.e"
+			  }
+			]
+		  }
+	}
+}
