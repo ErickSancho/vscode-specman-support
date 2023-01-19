@@ -29,7 +29,8 @@
                {"include": "#parenthesis"},
                {"include": "#curly_braces"},
                {"include": "#square_brackets"},
-               {"include": "#variable_type"}
+               {"include": "#variable_type"},
+			   {"include": "#defines"}
             ]
          }]
 		},
@@ -57,6 +58,7 @@
             {"include": "#temporal"},
             {"include": "#loops"},
             {"include": "#define"},
+			{"include": "#defines"},
             {"include": "#constraint"},
             {"include": "#special"},
             {"include": "#general_statements"},
@@ -254,7 +256,8 @@
                "name": "section.bracket.square.e",
                "patterns": [
                   {"include": "#punctuation"},
-                  {"include": "#ctrl-statements"}
+                  {"include": "#ctrl-statements"},
+				  {"include": "#block_declaration"}
                ]
 			   },
 			   {
@@ -287,7 +290,8 @@
 				  {"include": "#square_brackets"},
 				  {"include": "#numbers"},
 				  {"include": "#operators"},
-				  {"include": "#variable_type"}
+				  {"include": "#variable_type"},
+				  {"include": "#block_declaration"}
 				]
 			  },
 			  {
@@ -324,7 +328,7 @@
 				"name": "invalid.illegal.stray.parens.end.bracket.curly.e"
 			  }
 			]
-		  },
+		},
 		"strings": {
 			"patterns": [
 				{
@@ -350,32 +354,47 @@
 				}
 			]
 		},
+		"defines":{
+			"patterns": [
+				{
+					"comment": "Defines syntax",
+					"match": "#(ifndef|ifdef)\\s+(\\w+)",
+					"captures": {
+						"1":{"name":"keyword.control.e"},
+						"2":{"name":"keyword.other.type.e"}
+					},
+					"name":"keyword.control.e"
+				}
+			]
+		},
 		"numbers": {
 			"patterns": [
             {
-               "comment": "HEX numerical values.",
-               "match": "(0x)([a-fA-F0-9])*",
+               "comment": "HEX numerical values (UNSIZED).",
+               "match": "(0)(x)([a-fA-F0-9_]+)",
                "name": "constant.numeric.hex.e"
             },
+			{
+				"comment": "BIN numerical values (UNSIZED).",
+				"match": "(0)(b)([10_]+)",
+				"name": "constant.numeric.hex.e"
+			},
+			{
+				"comment": "OCT numerical values (UNSIZED).",
+				"match": "(0)(o)([0-7_]+)",
+				"name": "constant.numeric.hex.e"
+			},
             {
                "match": "(?<![\\w$])[0-9][0-9_]*\\.[0-9][0-9_]*",
                "name": "constant.numeric.float.e"
-			   },
-			   {
+			},
+			{
                "comment": "Numeric values.",
-               "match": "(?<![A-Za-z_])([0-9][0-9_]*)",
+               "match": "(?<![A-Za-z_])(\\b[0-9][0-9]*\\b)",
                "captures": {
                "1": {"name": "constant.numeric.width.e"},
                "2": {"name": "constant.numeric.e"}
                }
-			  },
-			  {
-               "match": "\\b([0-9][0-9_]*)\\s*((f|m|n|u|p)s)\\b",
-               "captures": {
-               "0": {"name": "meta.timing.control.e"},
-               "1": {"name": "constant.numeric.integer.e"},
-               "2": {"name": "constant.language.time-units.e"}
-				}
 			  }
 			]
 		  },
