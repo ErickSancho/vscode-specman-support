@@ -2,9 +2,9 @@
   "name": "specman-language",
   "displayName": "Specman - Language Support",
   "description": "Specman support for VS Code",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "engines": {
-    "vscode": "^1.74.0"
+    "vscode": "^1.60.0"
   },
   "publisher": "ersa",
   "repository": {
